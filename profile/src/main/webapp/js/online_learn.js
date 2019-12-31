@@ -1,10 +1,10 @@
  
-function renderGraph(data, color) {
+function renderGraph(data, labels, color) {
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {
 	    type: 'bar',
 	    data: {
-	        labels: ['', '', '', '', '', ''],
+	        labels: labels,
 	        datasets: [{
 	            data: data,
 	            backgroundColor: color,
@@ -18,6 +18,7 @@ function renderGraph(data, color) {
 	        scales: {
 	            yAxes: [{
 	                ticks: {
+	                	display:false,
 	                    beginAtZero: true
 	                },
 	                gridLines: {
@@ -37,7 +38,10 @@ function renderGraph(data, color) {
 	            duration: 0 // general animation time
 	        },
 	        hover: {
-	            animationDuration: 0 // duration of animations when hovering an item
+	        	intersect:false
+	        },
+	        tooltips: {
+	        	enabled:false
 	        },
 	        responsiveAnimationDuration: 0
 	    }
@@ -46,18 +50,12 @@ function renderGraph(data, color) {
 }
 
 function addData(chart, data, newColor) {
-	chart.data.labels.push('');
+	//chart.data.labels.push('');
     chart.data.datasets.forEach((dataset) => {
+    	dataset.data = [];
         dataset.data = data;
         dataset.backgroundColor = newColor;
     });
     chart.update();
 }
 
-function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data = [];
-    });
-    chart.update();
-}

@@ -11,15 +11,27 @@
     <canvas id="myChart"></canvas>
 	</div>
 <script>
-data = [12, 19, 3, 5, 2, 6];
-color = ['rgba(255, 99, 132, 0.2)',
-'rgba(54, 162, 235, 0.2)',
-'rgba(54, 162, 235, 0.2)',
-'rgba(54, 162, 235, 0.2)',
-'rgba(54, 162, 235, 0.2)',
-'rgba(54, 162, 235, 0.2)'];
-//renderGraph(data, color)
-console.log(bubble_Sort(data));
+COLOR = [];
+data = [];
+var TRANSITION_SPEED = 200;
+var SWAP_SPEED = 150;
+
+function getDefaultColor(data) {
+	return COLOR.slice(0);
+}
+function init(){
+	data = [12, 19, 3, 5, 2, 6, 12, 19, 3, 5, 2, 6];
+	labels = [];
+	var i;
+	for(i = 0 ; i < data.length; i++){
+		labels[i] = '';
+	}
+	for(i = 0 ; i < data.length; i++){
+		COLOR[i] = 'rgba(54, 162, 235, 0.1)';
+	}
+}
+init();
+bubble_Sort(data);
 
 function swap(arr, first_Index, second_Index){
     var temp = arr[first_Index];
@@ -29,11 +41,10 @@ function swap(arr, first_Index, second_Index){
 
 async function bubble_Sort(arr){
 
-    var len = arr.length,
-        i, j, stop;
+    var len = arr.length, i, j, stop;
 
     var newColor = getDefaultColor();
-    var chart = renderGraph(data, newColor);
+    var chart = renderGraph(data, labels, newColor);
     
     for (i=0; i < len; i++){
         for (j=0, stop=len-i; j < stop; j++){
@@ -41,18 +52,16 @@ async function bubble_Sort(arr){
             	newColor = getDefaultColor();
                 newColor[j] = 'rgba(255, 0, 0, 0.2)';
                 newColor[j+1] = 'rgba(255, 0, 0, 0.2)';
-                removeData(chart);
                 addData(chart, arr, newColor);
-                await sleep(250);
-                
+                await sleep(SWAP_SPEED);
                 swap(arr, j, j+1);
-                removeData(chart);
-                
                 addData(chart, arr, newColor);
-                await sleep(500);
+                await sleep(TRANSITION_SPEED);
             }
         }
     }
+    newColor = getDefaultColor();
+    addData(chart, arr, newColor);
     return arr;
 }
 
@@ -60,14 +69,7 @@ async function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
 
-function getDefaultColor() {
-	return ['rgba(54, 162, 235, 0.2)',
-		'rgba(54, 162, 235, 0.2)',
-		'rgba(54, 162, 235, 0.2)',
-		'rgba(54, 162, 235, 0.2)',
-		'rgba(54, 162, 235, 0.2)',
-		'rgba(54, 162, 235, 0.2)'];
-}
+
 
 
 </script>
