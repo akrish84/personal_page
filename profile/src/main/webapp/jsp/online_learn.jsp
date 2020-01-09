@@ -4,6 +4,7 @@
     <title>JavaScript Bar Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="/profile/js/online_learn.js"></script>
+    <link rel="stylesheet" href="style1.css">
     
   </head>
   <body>

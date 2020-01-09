@@ -30,8 +30,11 @@
 		<action name="index">
 			<result type="dispatcher">/index.jsp</result>
 		</action>
-		<action name="home">
+		<action name="sort">
 			<result type="dispatcher">/jsp/online_learn.jsp</result>
+		</action>
+		<action name="home">
+			<result type="dispatcher">/jsp/home.jsp</result>
 		</action>
 	</package>
 
